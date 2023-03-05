@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: elastic-query-service
+  profiles:
+    active: elastic_query
