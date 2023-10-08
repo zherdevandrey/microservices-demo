@@ -9,18 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>app-config-data</artifactId>
-
+    <artifactId>kafka</artifactId>
+    <modules>
+        <module>kafka-admin</module>
+        <module>kafka-model</module>
+        <module>kafka-producer</module>
+    </modules>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
+
     </dependencies>
+
+    <packaging>pom</packaging>
+
+    <build>
+    </build>
 
 
 </project>

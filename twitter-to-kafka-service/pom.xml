@@ -50,8 +50,15 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>${project.groupId}/twitter.to.kafka.service:${project.version}</name>
+                        <name>zherdev/twitter.to.kafka.service:${project.version}</name>
+                        <publish>true</publish>
                     </image>
+                    <docker>
+                        <publishRegistry>
+                            <username>zherdev</username>
+                            <password>A@a4544927a</password>
+                        </publishRegistry>
+                    </docker>
                 </configuration>
                 <executions>
                     <execution>

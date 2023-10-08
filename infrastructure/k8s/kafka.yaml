@@ -51,7 +51,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: KAFKA_ADVERTISED_LISTENERS
-              value: INTERNAL://$(MY_POD_NAME).kafka.default.svc.cluster.local:9093,CLIENT://$(MY_POD_NAME).kafka.default.svc.cluster.local:9092,EXTERNAL://$(MY_HOST_IP):32092
+              value: INTERNAL://kafka:9093,CLIENT://kafka:9092,EXTERNAL://$(MY_HOST_IP):32092
             - name: KAFKA_INTER_BROKER_LISTENER_NAME
               value: INTERNAL
             - name: KAFKA_LISTENERS
@@ -70,6 +70,8 @@ spec:
               value: "6000"
             - name: ZOOKEEPER_AUTOPURGE_PURGE_INTERVAL
               value: "0"
+            - name: AUTO_CREATE_TOPICS_ENABLE
+              value: "true"
           image: wurstmeister/kafka
           imagePullPolicy: IfNotPresent
           name: kafka-instance
