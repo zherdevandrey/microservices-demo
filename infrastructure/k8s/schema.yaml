@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: schema-service
+  labels:
+    name: schema-service
+spec:
+  type: NodePort
+  ports:
+    - name: "8081"
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+      nodePort: 32081
+  selector:
+    name: schema-registry
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: schema-registry
+spec:
+  selector:
+    matchLabels:
+      name: schema-registry
+  serviceName: schema-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: schema-registry
+    spec:
+      containers:
+        - env:
+#            - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
+#              value: zoo1:2181
+            - name: SCHEMA_REGISTRY_HOST_NAME
+              value: schema-registry
+            - name: SCHEMA_REGISTRY_LISTENERS
+              value: http://schema-service:8081
+            - name: SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS
+              value: PLAINTEXT://192.168.59.119:32092
+            - name: SCHEMA_REGISTRY_DEBUG
+              value: 'true'
+          name: schema-registry
+          ports:
+            - containerPort: 8081
+          image: confluentinc/cp-schema-registry:5.0.4
+      restartPolicy: Always
